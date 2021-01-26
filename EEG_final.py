@@ -7,9 +7,16 @@ from eeg_plotting import *
 # %%
 
 def run_EEG_load_plot(initial_location):
+    '''
+    :param initial_location: str; where would you like the selection dialog to open first.
+
+    example use:
+        run_EEG_load_plot(initial_location='/Users/prajayshah/OneDrive - University of Toronto/UTPhD/2020/Exp 2020.1T/2020-10-19_OptoEEG')
+
+    '''
+
     a, fs, t, V = load_abf(initial_loc=initial_location)
     create_plot(a, fs, t, V)
 
-
-run_EEG_load_plot(
-    initial_location='/Users/prajayshah/OneDrive - University of Toronto/UTPhD/2020/Exp 2020.1T/2020-10-19_OptoEEG')
+# run_EEG_load_plot(
+#     initial_location='/Users/prajayshah/OneDrive - University of Toronto/UTPhD/2020/Exp 2020.1T/2020-10-19_OptoEEG')
