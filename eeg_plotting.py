@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 
 
 # %%
-def create_plot(a, fs, t, V):
+def create_plot_of_EEG(a, fs, t, V):
     # Create figure
 
     # set layout
@@ -17,7 +17,7 @@ def create_plot(a, fs, t, V):
         hoverdistance=10,
         spikedistance=1000,
         xaxis=dict(
-            title="time",
+            title="time (seconds)",
             linecolor="#BCCCDC",  # Sets color of X-axis line
             showgrid=False,  # Removes X-axis grid lines
             # rangeslider=list(),
@@ -30,7 +30,7 @@ def create_plot(a, fs, t, V):
             spikemode='across'
         ),
         yaxis=dict(
-            title="price",
+            title="voltage",
             linecolor="#BCCCDC",  # Sets color of Y-axis line
             showgrid=False,  # Removes Y-axis grid lines
             fixedrange=False,
@@ -59,4 +59,28 @@ def create_plot(a, fs, t, V):
 
     fig.show()
 
+
 # go.FigureWidget(fig)
+
+
+# %% power spectrum of the EEG
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+def power_spectrum(a, fs, t, V, start=None, stop=None):
+    # create a power spectrum of selected data
+    if start & stop:
+        t_sub = np.where((t > 0) & (t < 115))
+        V = V[0][t_sub]
+
+    powerSpectrum, freqenciesFound, time, imageAxis = plt.specgram(V, Fs=fs,
+                                                                   vmin=-60)
+    # freq_slice = np.where((freqenciesFound >= 2) & (freqenciesFound <= 100))
+    # powerSpectrum = powerSpectrum[freq_slice, :][0]
+    plt.xlabel('Time')
+    plt.ylabel('Frequency')
+    plt.ylim([0, 200])
+    # plt.xlim([25, 90])
+    plt.colorbar()
+    plt.show()
